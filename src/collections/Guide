@@ -1,0 +1,44 @@
+I. Khái niệm về Collection Famework
+Collection famework trong java gồm 2 phần: Interface collection và class collection
+1. Interface collection: gồm có các interface như List Interface, Set Interface, Map Interface(Riêng Map không extends Collection vì cấu trúc dữ liệu khác (key-value))
+2. Class collection: ArrayList, LinkedList, HashSet, TreeSet, LinkedHashSet, HashMap, TreeMap, LinkedHashMap...v.v
+Các phương thức cơ bản: add, remove, clear, contains, size, isEmpty, get, set,...v.v
+Các phương thức về filter của Class Collections: Collection.sort, Collection.reverse, Collection.shuffle,...v.v.
+
+II. Từng loại Interface Collection và Class Collection trong Java
+1. List Interface
+- Là một loại Collection Interface. Có đặc điểm truy cập các phần tử theo chỉ mục, có thể thêm các phần tử trùng lặp và duy trì thứ tự chèn
+- Các phương thức phổ biến của List Interface: add, set, remove, get...v.v
+- ArrayList, LinkedList là 2 classs collection thuộc List Interface. 2 Class này có cùng phương thức và đặc điểm giống nhau vì
+đều tuân theo List Interface. Mặc dù 2 class này có thể được sử dụng theo cùng một các nhưng cách hoạt động của chúng lại khác nhau.
+
+Cách hoạt động:
+- ArrayList: Chứa một mảng thông thường ở bên trong. Khi một phần tử được thêm vào, nó được đặt vào trong mảng này.
+Nếu mảng này không đủ lớn, thì một mảng mới lớn hơn sẽ được tạo ra để thay thế mảng cũ và mảng cũ sẽ bị loại bỏ.
+
+- LinkedList: Lưu trữ các phần tử của nó trong các container (nút chứa). Danh sách có một liên kết trỏ đến container đầu tiên và mỗi
+container lại có một liên kết trỏ tới container tiếp theo trong danh sách. Để thêm một phần tử vào danh sách, phần tử đó được đặt vào trong container mới
+và container này được liên kết trỏ tới container khác trong danh sách.
+
+Khi nào nên sử dụng:
+- ArrayList: lưu trữ dữ liệu và truy cập dữ liệu
+- LinkedList: Thao tác dữ liệu (Thêm, xoá)
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+2. Set Interface
+- Là một loại Collection Interface. Có đặc điểm sử dụng để lưu trữ các phần tử không trùng nhau.
+- HashSet, LinkedHashSet và TreeSet là 3 class collection thuộc Set Interface.
+
+Lựa chọn class:
+- HashSet: nhanh và và không theo thứ tự
+- LinkedHashSet: xắp xếp theo lượt chèn
+- TreeSet: Tổng hợp phần tử đã sắp xếp
+
+3. Map Interface
+- Là một loại Collection Interface. nhưng không thừa kế Collection vì loại cấu trúc dữ liệu này sử dụng key-value pair.
+
+Lựa chọn class:
+- HashMap: nhanh và và không theo thứ tự
+- LinkedHashMap: xắp xếp theo lượt chèn
+- TreeMap: sắp xếp theo key
