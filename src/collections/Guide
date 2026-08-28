@@ -36,7 +36,7 @@ Lựa chọn class:
 - TreeSet: Tổng hợp phần tử đã sắp xếp
 
 3. Map Interface
-- Là một loại Collection Interface. nhưng không thừa kế Collection vì loại cấu trúc dữ liệu này sử dụng key-value pair.
+- Là một loại Collection Interface. nhưng không thừa kế Collection vì loại cấu trúc dữ liệu này sử dụng key-value pair, key là duy nhất
 
 Lựa chọn class:
 - HashMap: nhanh và và không theo thứ tự

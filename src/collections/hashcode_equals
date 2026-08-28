@@ -1,0 +1,29 @@
+## HashCode & Equals Contract
+
+### 1. Lý thuyết là gì?
+
+`equals()` và `hashCode()` là 2 method của class `Object`, mọi class trong Java đều kế thừa (mặc định).
+
+- **`equals()`**: mặc định so sánh **địa chỉ bộ nhớ** (reference) của 2 object — tức `obj1 == obj2`. Vì vậy nếu không override, 2 object có nội dung giống hệt nhau vẫn bị coi là "không bằng nhau" → sai về mặt logic nghiệp vụ.
+- **`hashCode()`**: trả về 1 số nguyên (integer) đại diện cho object. Nhiều object khác nhau **có thể** có cùng hashCode (gọi là collision) — điều này hoàn toàn bình thường và được cho phép.
+
+**Contract (quy tắc bắt buộc phải tuân thủ khi override):**
+1. Nếu `a.equals(b) == true` → bắt buộc `a.hashCode() == b.hashCode()`
+2. Nếu `a.hashCode() == b.hashCode()` → **không bắt buộc** `a.equals(b) == true`
+
+### 2. Giải quyết vấn đề gì?
+
+Các collection dựa trên hash (`HashMap`, `HashSet`, `Hashtable`) có đặc điểm: **không cho phép phần tử/key trùng nhau**. Để check trùng, nếu chỉ dùng `equals()` để quét tuần tự từng phần tử đã có trong collection thì độ phức tạp là O(n) — càng nhiều phần tử càng chậm.
+
+`hashCode()` giải quyết bài toán hiệu năng này: mỗi object dựa vào hashCode để được **định vị thẳng đến đúng bucket** tương ứng (thay vì so sánh với toàn bộ collection). Khi cần tìm/thêm/check tồn tại, hệ thống chỉ cần:
+1. Tính hashCode → xác định bucket
+2. Trong bucket đó (thường chỉ có vài phần tử do collision), mới dùng `equals()` để so sánh chính xác
+
+→ Đưa độ phức tạp tra cứu trung bình từ O(n) xuống gần O(1).
+
+### 3. Tại sao phải sử dụng (override) cả hai?
+
+- Nếu chỉ override `equals()` mà **không** override `hashCode()`: 2 object equals nhau về logic nhưng hashCode mặc định (theo địa chỉ bộ nhớ) lại khác nhau → chúng rơi vào **bucket khác nhau** → `HashSet`/`HashMap` không nhận ra là trùng → cho phép tồn tại 2 phần tử "logically equal" trong cùng 1 set, vi phạm bản chất của set, gây bug ngầm khó phát hiện.
+- Nếu chỉ override `hashCode()` mà **không** override `equals()`: 2 object cùng bucket nhưng vẫn so sánh reference khi `equals()` → không tận dụng được đúng ý nghĩa nghiệp vụ, logic so sánh vẫn sai.
+
+→ Phải override đồng thời cả hai và đảm bảo dùng **cùng tập field** để tuân thủ contract, nếu không hash-based collection sẽ hoạt động sai lệch (lookup thất bại, cho phép trùng lặp, hoặc mất phần tử khi field thay đổi sau khi đã add vào collection).
